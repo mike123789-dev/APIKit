@@ -10,6 +10,14 @@ class URLEncodedSerializationTests: XCTestCase {
         XCTAssertEqual(object?["key1"], "value1")
         XCTAssertEqual(object?["key2"], "value2")
     }
+    
+    func testObjectFromArray() {
+        let parameters: [String : Any] = ["foo": "bar", "array" : ["first", "second"]]
+        let serailizedString = URLEncodedSerialization.string(from: parameters)
+        XCTAssertTrue(serailizedString.contains("foo=bar"))
+        XCTAssertTrue(serailizedString.contains("array=first"))
+        XCTAssertTrue(serailizedString.contains("array=second"))
+    }
 
     func testInvalidFormatString() {
         let string = "key==value&"
